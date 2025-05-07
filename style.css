@@ -1,0 +1,147 @@
+body {
+    font-family: Arial;
+    padding: 40px;
+    text-align: center;
+    background-color: #a69595;
+  }
+  
+  .search-container {
+    position: relative;
+    width: 300px;
+    margin: auto;
+  }
+  /* Για να βεβαιωθείς ότι το λογότυπο είναι στην επάνω αριστερή γωνία */
+#logo {
+    position: absolute;  /* Χρησιμοποιούμε absolute positioning */
+    top: 10px;           /* Απόσταση από την κορυφή */
+    left: 10px;          /* Απόσταση από την αριστερή πλευρά */
+    width: 125px;        /* Μπορείς να προσαρμόσεις το μέγεθος */
+    height: auto;        /* Διατήρηση αναλογίας */
+  }
+
+  #menu-icon {
+    position: absolute;
+    top: 50px;           /* Απόσταση από την κορυφή */
+    left: 140px;          /* Απόσταση από τη δεξιά πλευρά */
+    font-size: 30px;      /* Μέγεθος εικονιδίου */
+    cursor: pointer;
+    z-index: 100;         /* Βεβαιωνόμαστε ότι το εικονίδιο είναι πάνω από τα υπόλοιπα στοιχεία */
+  }
+  
+  /* Αν θέλεις να προσαρμόσεις το hover effect στο menu-icon */
+  #menu-icon:hover {
+    color: #ff6600;       /* Χρώμα κατά την αλληλεπίδραση */
+  }
+   
+  
+  header{
+    
+    color:aquamarine;
+    
+   position: absolute;
+   top: 10px;
+   left: 20px;
+   width: auto;
+   height: auto;
+  }
+  
+  
+  
+  #searchInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+  }
+  
+  .suggestion-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .suggestion-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #ffffff;
+  }
+  
+  .slideshow-container {
+    margin-top: 50px;
+    position: relative;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .slide {
+    display: none;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .slide img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .slide h3 {
+    margin: 10px 0 5px;
+  }
+  
+  .slide p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 10px;
+    color: rgb(66, 9, 9);
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.6);
+    user-select: none;
+  }
+  
+  .next {
+    right: 0;
+  }
+  
+  .prev {
+    left: 0;
+  }
+  
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.9);
+  }
+  

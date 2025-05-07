@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Αναζήτηση Προϊόντων</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <header>
+   
+    <nav>
+      <a href="homepage.html"><img src="images/logo.png" alt="Το λογότυπό μας" id="logo"></a>
+      <nav>
+        <!-- Εικονίδιο με τις τρεις γραμμές -->
+        <a href="products.html"><div id="menu-icon" class="menu-icon">☰</div></a>
+        
+      </nav>
+     
+      
+    </nav>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Αναζήτησε προϊόν...">
+    <button type="submit">🔍</button>
+    <div class="suggestions" id="suggestionsBox"></div>
+  </div>
+
+  <!-- Εισαγωγή του products.html -->
+  <div id="productsContainer"></div>
+
+  <script>
+    // προϊόντα (πχ από "βάση" ή array)
+    const products = [
+      { name: "Montblanc MB 01 Over-Ear Headphones Brown", image: "images/eikona1.jpeg" },
+      { name: "Gaming Headphones - Havit H2015d", image: "images/eikona2.jpeg" },
+      { name: "Ασύρματα ακουστικά WH-CH520", image: "images/eikona3.jpeg" },
+      { name: "Razer Nari Essential", image: "images/razer_ak.jpeg" },
+      { name: "HyperX Cloud Alpha Wireless Gaming Headset", image: "images/hyperx.jpeg"},
+      { name: "ONIKUMA X25 Gaming Headset με σύνδεση 3.5mm Λευκό", image: "images/onikumax25.jpeg"},
+      { name: "Razer KRAKEN V3 – Wired USB THX RGB Gaming Headset", image: "images/razerkraken.jpeg"}
+    ];
+
+    // Slideshow λογική
+    let allSlides = [];
+    let filteredSlides = [];
+    let currentIndex = 0;
+
+    function showSlide(index) {
+      filteredSlides.forEach(slide => slide.style.display = "none");
+      if (filteredSlides.length > 0) {
+        currentIndex = (index + filteredSlides.length) % filteredSlides.length;
+        filteredSlides[currentIndex].style.display = "block";
+      }
+    }
+
+    function changeSlide(n) {
+      showSlide(currentIndex + n);
+    }
+
+    function filterSlides(query) {
+      filteredSlides = allSlides.filter(slide => {
+        const title = slide.querySelector("h3").innerText.toLowerCase();
+        const desc = slide.querySelector("p").innerText.toLowerCase();
+        return title.includes(query) || desc.includes(query);
+      });
+      showSlide(0);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("searchInput");
+      const suggestionsBox = document.getElementById("suggestionsBox");
+
+      // Φόρτωσε το products.html
+      fetch("products.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("productsContainer").innerHTML = html;
+          allSlides = Array.from(document.querySelectorAll(".slide"));
+          filteredSlides = [...allSlides];
+          showSlide(0);
+        });
+
+      // Αναζήτηση
+      searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase();
+        suggestionsBox.innerHTML = "";
+
+        if (query.length === 0) {
+          filteredSlides = [...allSlides];
+          showSlide(0);
+          return;
+        }
+
+        const matched = products.filter(p =>
+          p.name.toLowerCase().includes(query)
+        );
+
+        matched.forEach(product => {
+          const item = document.createElement("div");
+          item.className = "suggestion-item";
+          item.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <span>${product.name}</span>
+          `;
+          item.onclick = () => {
+            searchInput.value = product.name;
+            filterSlides(product.name.toLowerCase());
+            suggestionsBox.innerHTML = "";
+          };
+          suggestionsBox.appendChild(item);
+        });
+
+        filterSlides(query);
+      });
+
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".search-container")) {
+          suggestionsBox.innerHTML = "";
+        }
+      });
+    });
+  </script>
+
+  <footer>
+    <p>Ομάδα: Γιώργος Κασσερόπουλος, Κωνσταντίνος Μουσουλής, Ευάγγελος Πάνως-Κάτως  </p>
+  </footer>
+
+</body>
+</html>
